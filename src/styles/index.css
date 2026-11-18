@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    @apply min-h-screen bg-white text-brand-carbon font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-brand-forge text-white;
+  }
+}
+
+@layer utilities {
+  /* Fits hero within exact remaining viewport height on standard desktop & laptop screens */
+  @media (min-width: 1024px) and (min-height: 580px) {
+    .hero-screen-fit {
+      height: calc(100vh - var(--navbar-height, 120px));
+      max-height: calc(100vh - var(--navbar-height, 120px));
+    }
+  }
+
+  @media (max-width: 1023px), (max-height: 579px) {
+    .hero-screen-fit {
+      height: auto;
+      min-height: 0;
+    }
+  }
+
+  /* Fits products section within 100vh on desktop screens while allowing responsive flow on smaller displays */
+  @media (min-width: 1024px) and (min-height: 640px) {
+    .products-screen-fit {
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 1023px), (max-height: 639px) {
+    .products-screen-fit {
+      height: auto;
+      min-height: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-diagonal-left {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 56px) 100%, 0 100%);
+    }
+
+    .category-badge-diagonal {
+      clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .hero-diagonal-left {
+      clip-path: none;
+    }
+
+    .category-badge-diagonal {
+      clip-path: none;
+    }
+  }
+
+  /* Seamless continuous infinite slider right-to-left */
+  @keyframes marquee-left {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-marquee-left {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 38s linear infinite;
+    will-change: transform;
+  }
+}
